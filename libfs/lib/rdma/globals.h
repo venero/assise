@@ -18,9 +18,9 @@
 // XXX NOTE: MAX_BUFFER must be a power of 2 (necessary for atomicity of buffer acquisitions)
 #define MAX_DEVICES 2 // max # of RDMA devices/ports
 #define MAX_CONNECTIONS 1000 // max # of RDMA connections per peer
-#define MAX_MR 10 // max # of memory regions per connection
+#define MAX_MR 100 // max # of memory regions per connection
 #define MAX_PENDING 500 // max # of pending app responses per connection
-#define MAX_BUFFER 8 // max # of msg buffers per connection
+#define MAX_BUFFER 80 // max # of msg buffers per connection
 #define MAX_SEND_QUEUE_SIZE 1024 // depth of rdma send queue
 #define MAX_RECV_QUEUE_SIZE 1024 // depth of rdma recv queue
 
