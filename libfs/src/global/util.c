@@ -275,36 +275,14 @@ int get_cpuid() {
 
 int fetch_intf_ip(char* intf, char* host)
 {
-	struct ifaddrs *ifaddr, *ifa;
-	int family, s;
-	socklen_t addr_len;
-
-	if (getifaddrs(&ifaddr) == -1) 
-		panic("getifaddrs\n");
-
-	for (ifa = ifaddr; ifa != NULL; ifa = ifa->ifa_next) 
-	{
-		if (ifa->ifa_addr == NULL || ifa->ifa_addr->sa_family != AF_INET)
-			continue;  
-
-		s=getnameinfo(ifa->ifa_addr,sizeof(struct sockaddr_in),host, NI_MAXHOST, NULL, 0, NI_NUMERICHOST);
-
-		//printf("ifa->ifa_name: %s host %s family %d\n",
-		//		ifa->ifa_name, host, ifa->ifa_addr->sa_family);
-
-		if((strcmp(ifa->ifa_name,intf)==0)&&(ifa->ifa_addr->sa_family==AF_INET))
-		{
-			if (s != 0) {
-				printf("error returned: %s\n", gai_strerror(s));
-				panic("getnameinfo() failed\n");
-			}
-			else {
-				freeifaddrs(ifaddr);
-				return 0;
-			}
-		}
+    char buf[20];
+    gethostname(buf, 256);
+	if (!strcmp(intf, "lo"))
+		strcpy(host, "127.0.0.1");
+	else if (!strcmp(intf, "ib0")) {
+		strcpy(host, "10.0.0.");
+		strcat(host, buf+4);
+		printf("Use ib addr: %s\n", host);
 	}
-
-	freeifaddrs(ifaddr);
 	return 0;
 }
