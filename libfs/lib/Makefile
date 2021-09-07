@@ -4,6 +4,7 @@ DPDK_VER := 16.11
 all:	download
 	#if [ ! -d "dpdk-$(DPDK_VER)" ]; then tar xf dpdk-$(DPDK_VER).tar.xz; fi
 	#sudo make install -C dpdk-$(DPDK_VER) T=x86_64-native-linuxapp-gcc DESTDIR=dpdk-$(DPDK_VER)/ -j8
+	# sudo yum install -y ndctl-devel daxctl-devel libpmem-devel numactl-devel libnl3-devel pkgconfig capstone-devel
 	make -C nvml -j8
 	(cd rdma-core && ./build.sh)
 	(cd rdma && make)
@@ -34,7 +35,7 @@ download:
 	########
 	if [ ! -d "nvml" ] || [ ! -z $(REPO_PURGE) ]; then\
 		rm -rf nvml;\
-		git clone https://github.com/pmem/nvml;\
+		git clone git@github.com:pmem/pmdk.git;\
 		(cd nvml && git checkout tags/1.7);\
 	fi
 	########
@@ -42,7 +43,7 @@ download:
 	########
 	if [ ! -d "syscall_intercept" ] || [ ! -z $(REPO_PURGE) ]; then\
 		rm -rf syscall_intercept;\
-		git clone https://github.com/pmem/syscall_intercept.git;\
+		git clone git@github.com:pmem/syscall_intercept.git;\
 	fi
 
 clean:

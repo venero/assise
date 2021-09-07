@@ -1,7 +1,8 @@
-CC = gcc #-D_GNU_SOURCE # C compiler
+CC = gcc -std=c99 #-D_GNU_SOURCE # C compiler
 #CFLAGS = -fPIC -Wall -Wextra -O2 -g # C flags
 CFLAGS = -fPIC -O2 -g
 CFLAGS += -I../rdma-core/build/include
+CFLAGS += -std=gnu11
 LDFLAGS = -shared  # linking flags
 
 RM = rm -f  # rm command

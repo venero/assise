@@ -270,6 +270,7 @@ void io_bench::do_write(void)
 						size, bytes_written);
 				errx(1, "write");
 			}
+			// if (true) {
 			if (do_fsync) {
 				time_stats_start(&fstats);
 				fsync(fd);
@@ -286,6 +287,7 @@ void io_bench::do_write(void)
 
 	time_stats_print(&iostats, (char *)"--------------- Latency (Write + Fsync)");
 
+	// if (true) {
 	if(do_fsync) {
 		double avg = time_stats_get_avg(&fstats); 
 		printf("\tfsync-avg: %.3f msec (%.2f usec)\n", avg * 1000.0, avg * 1000000.0);

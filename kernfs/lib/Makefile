@@ -14,7 +14,7 @@ download:
 	########
 	if [ ! -d "spdk" ] || [ ! -z $(REPO_PURGE) ]; then\
 		rm -rf spdk;\
-		git clone https://github.com/spdk/spdk.git;\
+		git clone git@github.com:spdk/spdk.git;\
 	fi
 
 redownload: REPO_PURGE=1
